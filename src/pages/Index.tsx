@@ -11,21 +11,21 @@ import html2canvas from 'html2canvas';
 interface DogData {
   name: string;
   breed: string;
-  birthDate: string;
+  rkfNumber: string;
   photo: string;
   father: {
     name: string;
-    birthDate: string;
+    rkfNumber: string;
   };
   mother: {
     name: string;
-    birthDate: string;
+    rkfNumber: string;
   };
   grandparents: {
-    paternalGrandfather: { name: string; birthDate: string };
-    paternalGrandmother: { name: string; birthDate: string };
-    maternalGrandfather: { name: string; birthDate: string };
-    maternalGrandmother: { name: string; birthDate: string };
+    paternalGrandfather: { name: string; rkfNumber: string };
+    paternalGrandmother: { name: string; rkfNumber: string };
+    maternalGrandfather: { name: string; rkfNumber: string };
+    maternalGrandmother: { name: string; rkfNumber: string };
   };
   health: number;
   awards: number;
@@ -51,32 +51,32 @@ const PedigreeCanvas = ({ data }: { data: DogData }) => {
 
       <div className="absolute top-12 left-[100px] text-center w-[200px]">
         <div className="text-sm font-semibold uppercase tracking-wide">{data.grandparents.paternalGrandfather.name || 'ДЕДУШКА ПО ОТЦУ'}</div>
-        <div className="text-xs mt-1">{data.grandparents.paternalGrandfather.birthDate || 'ДР: XX.XX.XXXX'}</div>
+        {data.grandparents.paternalGrandfather.rkfNumber && <div className="text-xs mt-1">РКФ {data.grandparents.paternalGrandfather.rkfNumber}</div>}
       </div>
 
       <div className="absolute top-[370px] left-[100px] text-center w-[200px]">
         <div className="text-sm font-semibold uppercase tracking-wide">{data.grandparents.paternalGrandmother.name || 'БАБУШКА ПО ОТЦУ'}</div>
-        <div className="text-xs mt-1">{data.grandparents.paternalGrandmother.birthDate || 'ДР: XX.XX.XXXX'}</div>
+        {data.grandparents.paternalGrandmother.rkfNumber && <div className="text-xs mt-1">РКФ {data.grandparents.paternalGrandmother.rkfNumber}</div>}
       </div>
 
       <div className="absolute top-12 right-[100px] text-center w-[200px]">
         <div className="text-sm font-semibold uppercase tracking-wide">{data.grandparents.maternalGrandfather.name || 'ДЕДУШКА ПО МАТЕРИ'}</div>
-        <div className="text-xs mt-1">{data.grandparents.maternalGrandfather.birthDate || 'ДР: XX.XX.XXXX'}</div>
+        {data.grandparents.maternalGrandfather.rkfNumber && <div className="text-xs mt-1">РКФ {data.grandparents.maternalGrandfather.rkfNumber}</div>}
       </div>
 
       <div className="absolute top-[370px] right-[100px] text-center w-[200px]">
         <div className="text-sm font-semibold uppercase tracking-wide">{data.grandparents.maternalGrandmother.name || 'БАБУШКА ПО МАТЕРИ'}</div>
-        <div className="text-xs mt-1">{data.grandparents.maternalGrandmother.birthDate || 'ДР: XX.XX.XXXX'}</div>
+        {data.grandparents.maternalGrandmother.rkfNumber && <div className="text-xs mt-1">РКФ {data.grandparents.maternalGrandmother.rkfNumber}</div>}
       </div>
 
       <div className="absolute top-[220px] left-[250px] text-center w-[200px]">
         <div className="text-base font-semibold uppercase tracking-wide">{data.father.name || 'ОТЕЦ'}</div>
-        <div className="text-sm mt-1">{data.father.birthDate || 'ДР: XX.XX.XXXX'}</div>
+        {data.father.rkfNumber && <div className="text-sm mt-1">РКФ {data.father.rkfNumber}</div>}
       </div>
 
       <div className="absolute top-[220px] right-[250px] text-center w-[200px]">
         <div className="text-base font-semibold uppercase tracking-wide">{data.mother.name || 'МАТЬ'}</div>
-        <div className="text-sm mt-1">{data.mother.birthDate || 'ДР: XX.XX.XXXX'}</div>
+        {data.mother.rkfNumber && <div className="text-sm mt-1">РКФ {data.mother.rkfNumber}</div>}
       </div>
 
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center" style={{ zIndex: 10 }}>
@@ -91,7 +91,7 @@ const PedigreeCanvas = ({ data }: { data: DogData }) => {
         )}
         <div className="text-2xl font-bold uppercase tracking-wider">{data.name || 'КЛИЧКА'}</div>
         <div className="text-base mt-2">{data.breed || 'ПОРОДА'}</div>
-        <div className="text-sm mt-1">{data.birthDate || 'ДР: XX.XX.XXXX'}</div>
+        {data.rkfNumber && <div className="text-sm mt-1">РКФ {data.rkfNumber}</div>}
         
         <div className="flex gap-8 justify-center mt-6">
           <div className="flex items-center gap-2">
@@ -114,15 +114,15 @@ const Index = () => {
   const [dogData, setDogData] = useState<DogData>({
     name: '',
     breed: '',
-    birthDate: '',
+    rkfNumber: '',
     photo: '',
-    father: { name: '', birthDate: '' },
-    mother: { name: '', birthDate: '' },
+    father: { name: '', rkfNumber: '' },
+    mother: { name: '', rkfNumber: '' },
     grandparents: {
-      paternalGrandfather: { name: '', birthDate: '' },
-      paternalGrandmother: { name: '', birthDate: '' },
-      maternalGrandfather: { name: '', birthDate: '' },
-      maternalGrandmother: { name: '', birthDate: '' },
+      paternalGrandfather: { name: '', rkfNumber: '' },
+      paternalGrandmother: { name: '', rkfNumber: '' },
+      maternalGrandfather: { name: '', rkfNumber: '' },
+      maternalGrandmother: { name: '', rkfNumber: '' },
     },
     health: 0,
     awards: 0,
@@ -241,12 +241,12 @@ const Index = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="birthDate">Дата рождения</Label>
+                      <Label htmlFor="rkfNumber">Номер РКФ (опционально)</Label>
                       <Input
-                        id="birthDate"
-                        placeholder="ДР: 30.02.22"
-                        value={dogData.birthDate}
-                        onChange={(e) => setDogData({ ...dogData, birthDate: e.target.value })}
+                        id="rkfNumber"
+                        placeholder="РКФ 1234567"
+                        value={dogData.rkfNumber}
+                        onChange={(e) => setDogData({ ...dogData, rkfNumber: e.target.value })}
                       />
                     </div>
 
@@ -329,14 +329,14 @@ const Index = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="fatherBirth">Дата рождения отца</Label>
+                      <Label htmlFor="fatherRkf">Номер РКФ отца</Label>
                       <Input
-                        id="fatherBirth"
-                        placeholder="ДР: XX.XX.XX"
-                        value={dogData.father.birthDate}
+                        id="fatherRkf"
+                        placeholder="РКФ"
+                        value={dogData.father.rkfNumber}
                         onChange={(e) => setDogData({
                           ...dogData,
-                          father: { ...dogData.father, birthDate: e.target.value }
+                          father: { ...dogData.father, rkfNumber: e.target.value }
                         })}
                       />
                     </div>
@@ -355,14 +355,14 @@ const Index = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="motherBirth">Дата рождения матери</Label>
+                      <Label htmlFor="motherRkf">Номер РКФ матери</Label>
                       <Input
-                        id="motherBirth"
-                        placeholder="ДР: XX.XX.XX"
-                        value={dogData.mother.birthDate}
+                        id="motherRkf"
+                        placeholder="РКФ"
+                        value={dogData.mother.rkfNumber}
                         onChange={(e) => setDogData({
                           ...dogData,
-                          mother: { ...dogData.mother, birthDate: e.target.value }
+                          mother: { ...dogData.mother, rkfNumber: e.target.value }
                         })}
                       />
                     </div>
@@ -388,14 +388,14 @@ const Index = () => {
                           })}
                         />
                         <Input
-                          placeholder="ДР"
+                          placeholder="РКФ"
                           className="text-sm mt-1"
-                          value={dogData.grandparents.paternalGrandfather.birthDate}
+                          value={dogData.grandparents.paternalGrandfather.rkfNumber}
                           onChange={(e) => setDogData({
                             ...dogData,
                             grandparents: {
                               ...dogData.grandparents,
-                              paternalGrandfather: { ...dogData.grandparents.paternalGrandfather, birthDate: e.target.value }
+                              paternalGrandfather: { ...dogData.grandparents.paternalGrandfather, rkfNumber: e.target.value }
                             }
                           })}
                         />
@@ -416,14 +416,14 @@ const Index = () => {
                           })}
                         />
                         <Input
-                          placeholder="ДР"
+                          placeholder="РКФ"
                           className="text-sm mt-1"
-                          value={dogData.grandparents.paternalGrandmother.birthDate}
+                          value={dogData.grandparents.paternalGrandmother.rkfNumber}
                           onChange={(e) => setDogData({
                             ...dogData,
                             grandparents: {
                               ...dogData.grandparents,
-                              paternalGrandmother: { ...dogData.grandparents.paternalGrandmother, birthDate: e.target.value }
+                              paternalGrandmother: { ...dogData.grandparents.paternalGrandmother, rkfNumber: e.target.value }
                             }
                           })}
                         />
@@ -444,14 +444,14 @@ const Index = () => {
                           })}
                         />
                         <Input
-                          placeholder="ДР"
+                          placeholder="РКФ"
                           className="text-sm mt-1"
-                          value={dogData.grandparents.maternalGrandfather.birthDate}
+                          value={dogData.grandparents.maternalGrandfather.rkfNumber}
                           onChange={(e) => setDogData({
                             ...dogData,
                             grandparents: {
                               ...dogData.grandparents,
-                              maternalGrandfather: { ...dogData.grandparents.maternalGrandfather, birthDate: e.target.value }
+                              maternalGrandfather: { ...dogData.grandparents.maternalGrandfather, rkfNumber: e.target.value }
                             }
                           })}
                         />
@@ -472,14 +472,14 @@ const Index = () => {
                           })}
                         />
                         <Input
-                          placeholder="ДР"
+                          placeholder="РКФ"
                           className="text-sm mt-1"
-                          value={dogData.grandparents.maternalGrandmother.birthDate}
+                          value={dogData.grandparents.maternalGrandmother.rkfNumber}
                           onChange={(e) => setDogData({
                             ...dogData,
                             grandparents: {
                               ...dogData.grandparents,
-                              maternalGrandmother: { ...dogData.grandparents.maternalGrandmother, birthDate: e.target.value }
+                              maternalGrandmother: { ...dogData.grandparents.maternalGrandmother, rkfNumber: e.target.value }
                             }
                           })}
                         />
@@ -542,7 +542,7 @@ const Index = () => {
                           <CardContent className="pt-4">
                             <h3 className="font-semibold text-lg">{pedigree.name}</h3>
                             <p className="text-sm text-gray-500">{pedigree.breed}</p>
-                            <p className="text-xs text-gray-400 mt-1">{pedigree.birthDate}</p>
+                            {pedigree.rkfNumber && <p className="text-xs text-gray-400 mt-1">РКФ {pedigree.rkfNumber}</p>}
                             <Button variant="outline" size="sm" className="w-full mt-3">
                               <Icon name="Eye" size={16} className="mr-2" />
                               Загрузить
@@ -570,7 +570,7 @@ const Index = () => {
                     <div className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold">1</div>
                     <div>
                       <h3 className="font-semibold">Заполните основную информацию</h3>
-                      <p className="text-gray-600">Укажите кличку, породу и дату рождения собаки. Загрузите фото питомца.</p>
+                      <p className="text-gray-600">Укажите кличку, породу и номер РКФ собаки (при наличии). Загрузите фото питомца.</p>
                     </div>
                   </div>
 
@@ -578,7 +578,7 @@ const Index = () => {
                     <div className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold">2</div>
                     <div>
                       <h3 className="font-semibold">Добавьте данные о родителях</h3>
-                      <p className="text-gray-600">Внесите клички и даты рождения отца и матери.</p>
+                      <p className="text-gray-600">Внесите клички и номера РКФ отца и матери.</p>
                     </div>
                   </div>
 
@@ -586,7 +586,7 @@ const Index = () => {
                     <div className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold">3</div>
                     <div>
                       <h3 className="font-semibold">Укажите бабушек и дедушек</h3>
-                      <p className="text-gray-600">Заполните информацию о всех четырех бабушках и дедушках по отцовской и материнской линии.</p>
+                      <p className="text-gray-600">Заполните клички и номера РКФ всех четырех бабушек и дедушек по отцовской и материнской линии.</p>
                     </div>
                   </div>
 
