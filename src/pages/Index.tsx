@@ -136,7 +136,7 @@ const Index = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setDogData({ ...dogData, photo: reader.result as string });
+        setDogData((prev) => ({ ...prev, photo: reader.result as string }));
       };
       reader.readAsDataURL(file);
     }
