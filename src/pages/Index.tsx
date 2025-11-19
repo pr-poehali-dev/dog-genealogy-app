@@ -129,7 +129,6 @@ const Index = () => {
   });
 
   const [savedPedigrees, setSavedPedigrees] = useState<DogData[]>([]);
-  const [activeTab, setActiveTab] = useState('create');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,13 +171,11 @@ const Index = () => {
       return;
     }
     setSavedPedigrees((prev) => [...prev, { ...dogData }]);
-    setActiveTab('gallery');
     toast.success('Родословная сохранена в галерею!');
   };
 
   const loadPedigree = (pedigree: DogData) => {
     setDogData({ ...pedigree });
-    setActiveTab('preview');
     toast.success('Родословная загружена!');
   };
 
@@ -193,7 +190,7 @@ const Index = () => {
           <p className="text-gray-600">Создайте красивую родословную для вашего питомца</p>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs defaultValue="create" className="w-full">
           <TabsList className="grid w-full grid-cols-4 mb-8">
             <TabsTrigger value="create">
               <Icon name="Edit" size={18} className="mr-2" />
